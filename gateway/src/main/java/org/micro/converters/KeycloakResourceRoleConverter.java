@@ -17,6 +17,11 @@ public class KeycloakResourceRoleConverter implements Converter<Jwt, Collection<
     @Value("${keycloak.client-ids}")
     private List<String> clientIds;
 
+    /**
+     * Convert keycloak JWT resource roles to spring security granted authorities for defined clients
+     * @param jwt the source object to convert, which must be an instance of {@code S} (never {@code null})
+     * @return granted authorities
+     */
     @Override
     public Collection<GrantedAuthority> convert(Jwt jwt) {
         Map<String, Object> resourceAccess = jwt.getClaimAsMap("resource_access");

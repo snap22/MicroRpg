@@ -1,0 +1,71 @@
+{
+  "type": "record",
+  "name": "QuestEvent",
+  "namespace": "org.micro.avro",
+  "fields": [
+    {
+      "name": "playerId",
+      "type": "int"
+    },
+    {
+      "name": "questId",
+      "type": "int"
+    },
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "objective",
+      "type": "string"
+    },
+    {
+      "name": "progress",
+      "type": [
+        "null",
+        "int"
+      ],
+      "default": null
+    },
+    {
+      "name": "rewards",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "Reward",
+          "fields": [
+            {
+              "name": "exp",
+              "type": [
+                "null",
+                "int"
+              ],
+              "default": null
+            },
+            {
+              "name": "gold",
+              "type": [
+                "null",
+                "int"
+              ],
+              "default": null
+            },
+            {
+              "name": "itemIds",
+              "type": [
+                "null",
+                {
+                  "type": "array",
+                  "items": "int"
+                }
+              ],
+              "default": null
+            }
+          ]
+        }
+      ],
+      "default": null
+    }
+  ]
+}
