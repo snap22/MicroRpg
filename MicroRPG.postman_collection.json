@@ -1,0 +1,297 @@
+{
+	"info": {
+		"_postman_id": "6b1a3ff4-3bcc-4819-81c4-b52fb72a1d05",
+		"name": "MicroRPG",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16849175"
+	},
+	"item": [
+		{
+			"name": "gateway",
+			"item": [
+				{
+					"name": "Get quest event types",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gatewayUrl}}/api/v1/events/types/quests",
+							"host": [
+								"{{gatewayUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"events",
+								"types",
+								"quests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create quest accepted event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"playerId\": 1,\n    \"questId\": 1,\n    \"name\": \"The wrath of the wolf\",\n    \"objective\": \"Kill 10 sheep\",\n    \"progress\": 0,\n    \"rewards\": {\n        \"exp\": 10,\n        \"gold\": 0,\n        \"itemIds\": [1, 2]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gatewayUrl}}/api/v1/events/quests/accepted",
+							"host": [
+								"{{gatewayUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"events",
+								"quests",
+								"accepted"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create quest progressed event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"playerId\": 1,\n    \"questId\": 1,\n    \"name\": \"The wrath of the wolf\",\n    \"objective\": \"Kill 10 sheep\",\n    \"progress\": 0,\n    \"rewards\": {\n        \"exp\": 10,\n        \"gold\": 0,\n        \"itemIds\": [1, 2]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gatewayUrl}}/api/v1/events/quests/progressed",
+							"host": [
+								"{{gatewayUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"events",
+								"quests",
+								"progressed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create quest cancelled event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"playerId\": 1,\n    \"questId\": 1,\n    \"name\": \"The wrath of the wolf\",\n    \"objective\": \"Kill 10 sheep\",\n    \"progress\": 0,\n    \"rewards\": {\n        \"exp\": 10,\n        \"gold\": 0,\n        \"itemIds\": [1, 2]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gatewayUrl}}/api/v1/events/quests/cancelled",
+							"host": [
+								"{{gatewayUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"events",
+								"quests",
+								"cancelled"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "keycloak",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.collectionVariables.set(\"token\", jsonData.access_token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "simple-event-producer-app",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "simple-dummy-user",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{keycloakUrl}}/realms/micro/protocol/openid-connect/token",
+							"host": [
+								"{{keycloakUrl}}"
+							],
+							"path": [
+								"realms",
+								"micro",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "consumer",
+			"item": [
+				{
+					"name": "Consume quest events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{consumerUrl}}/sse/quests",
+							"host": [
+								"{{consumerUrl}}"
+							],
+							"path": [
+								"sse",
+								"quests"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "gatewayUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "keycloakUrl",
+			"value": "http://localhost:8075",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "consumerUrl",
+			"value": "http://localhost:8079",
+			"type": "string"
+		}
+	]
+}
