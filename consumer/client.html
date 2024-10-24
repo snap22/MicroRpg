@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSE Quest Event Client</title>
+</head>
+<body>
+    <h1>Quest Events</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Quest Event Data</th>
+            </tr>
+        </thead>
+        <tbody id="event-table-body">
+            <!-- Events will be appended here -->
+        </tbody>
+    </table>
+
+    <script>
+        const eventSource = new EventSource('http://localhost:8079/sse/quests');
+        const tableBody = document.getElementById('event-table-body');
+        let count = 1;
+
+        eventSource.onmessage = function (event) {
+            // Create a new row for each incoming event
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `<td>${count++}</td><td>${event.data}</td>`;
+            tableBody.appendChild(newRow);
+        };
+
+        eventSource.onerror = function () {
+            console.error('Error in connecting to SSE');
+        };
+    </script>
+</body>
+</html>
